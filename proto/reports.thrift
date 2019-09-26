@@ -126,7 +126,7 @@ service Reporting {
   *
   * ReportNotFound, если отчет не найден
   */
-  void cancelReport(1: ReportID report_id) throws (1: ReportNotFound ex1)
+  void CancelReport(1: ReportID report_id) throws (1: ReportNotFound ex1)
 
   /**
   * Сгенерировать ссылку на файл

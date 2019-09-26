@@ -1,5 +1,5 @@
 {application, reporter_proto, [
-    {description, "Thrift proto for fistful reporter"},
+    {description, "Thrift proto for reporter"},
     {vsn, "0.1.0"},
     {applications, [
         kernel,

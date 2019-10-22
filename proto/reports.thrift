@@ -21,6 +21,13 @@ exception DatasetTooBig {
     1: i32 limit
 }
 
+/**
+* Ошибка обработки переданного токена, при получении такой ошибки клиент должен заново запросить все данные, соответсвующие запросу
+*/
+exception BadToken {
+    1: string reason
+}
+
 exception PartyNotFound {}
 exception ShopNotFound {}
 exception ReportNotFound {}
@@ -30,6 +37,27 @@ struct ReportRequest {
     1: required PartyID party_id
     2: required ReportTimeRange time_range
     3: optional ShopID shop_id
+}
+
+/** Запрос списка отчетов
+ * В случае если список report_types отсутствует, фильтрации по типу не будет
+ * continuation_token - токен, который передается в случае обращения за следующим блоком данных
+*/
+
+struct StatReportRequest {
+    1: required ReportRequest request
+    2: optional list<ReportType> report_types
+    3: optional string continuation_token
+}
+
+/**
+* Данные списка отчетов.
+* continuation_token - токен, сигнализирующий о том, что в ответе передана только часть данных, для получения следующей части
+* нужно повторно обратиться к сервису, указав тот-же набор условий и continuation_token. Если токена нет, получена последняя часть данных.
+*/
+struct StatReportResponse {
+    1: required list<Report> reports
+    2: optional string continuation_token
 }
 
 /**
@@ -105,14 +133,13 @@ service Reporting {
   ReportID CreateReport(1: ReportRequest request, 2: ReportType report_type) throws (1: PartyNotFound ex1, 2: ShopNotFound ex2, 3: InvalidRequest ex3)
 
   /**
-  * Получить список отчетов по магазину за указанный промежуток времени с фильтрацией по типу
-  * В случае если список report_types пустой, фильтрации по типу не будет
+  * Получить список отчетов по магазину за указанный промежуток времени
   * Возвращает список отчетов или пустой список, если отчеты по магазину не найдены
   *
   * InvalidRequest, если промежуток времени некорректен
   * DatasetTooBig, если размер списка превышает допустимый лимит
   */
-  list<Report> GetReports(1: ReportRequest request, 2: list<ReportType> report_types) throws (1: DatasetTooBig ex1, 2: InvalidRequest ex2)
+  StatReportResponse GetReports(1: StatReportRequest request) throws (1: DatasetTooBig ex1, 2: InvalidRequest ex2, 3: BadToken ex3)
 
   /**
   * Запрос на получение отчета

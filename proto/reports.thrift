@@ -36,7 +36,8 @@ exception FileNotFound {}
 struct ReportRequest {
     1: required PartyID party_id
     2: required ReportTimeRange time_range
-    3: optional ShopID shop_id
+    3: optional ShopID shop_id // Deprecated
+    4: optional list<ShopID> shop_ids
 }
 
 /** Запрос списка отчетов

@@ -49,6 +49,7 @@ struct StatReportRequest {
     1: required ReportRequest request
     2: optional list<ReportType> report_types
     3: optional string continuation_token
+    4: optional i32 limit
 }
 
 /**

@@ -1,4 +1,4 @@
-namespace java com.rbkmoney.reporter.base
+namespace java dev.vality.reporter.base
 namespace erlang reporter_base
 
 /**

@@ -1,7 +1,7 @@
 include "base.thrift"
 include "domain.thrift"
 
-namespace java com.rbkmoney.reporter
+namespace java dev.vality.reporter
 namespace erlang reports
 
 typedef base.Timestamp Timestamp

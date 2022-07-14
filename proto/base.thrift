@@ -1,5 +1,5 @@
 namespace java dev.vality.reporter.base
-namespace erlang reporter_base
+namespace erlang reporter.base
 
 /**
  * Отметка во времени согласно RFC 3339.

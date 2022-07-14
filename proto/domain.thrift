@@ -1,7 +1,7 @@
 include "base.thrift"
 
 namespace java dev.vality.reporter.domain
-namespace erlang reporter_domain
+namespace erlang reporter.domain
 
 typedef base.ID PartyID
 typedef base.ID ShopID

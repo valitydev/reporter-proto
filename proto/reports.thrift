@@ -2,7 +2,7 @@ include "base.thrift"
 include "domain.thrift"
 
 namespace java dev.vality.reporter
-namespace erlang reports
+namespace erlang reporter.reports
 
 typedef base.Timestamp Timestamp
 typedef base.InvalidRequest InvalidRequest
